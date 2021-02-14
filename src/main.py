@@ -7,7 +7,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from string import punctuation
 
-model_file = open('.models/sentiment_classifier.pickle', 'rb')
+model_file = open('sentiment_classifier.pickle', 'rb')
 model = pickle.load(model_file)
 model_file.close()
 
