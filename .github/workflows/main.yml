@@ -23,6 +23,5 @@ jobs:
           runtime: python39
           region: us-central1
           entry_point: text_sentiment
-          event_trigger_type: HTTP
       - id: test
         run: curl "${{ steps.deploy.outputs.url }}"
