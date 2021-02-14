@@ -1,0 +1,15 @@
+- uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+  with:
+    service_account_key: ${{ secrets.GCP_SA_KEY }}
+    export_default_credentials: true
+- uses: actions/checkout@v2
+- id: Deploy
+  uses: google-github-actions/deploy-cloud-functions@main
+  with:
+    name: sentiment-analysis-cloud-function
+    runtime: python39
+    region: us-central1
+    entry_point: text_sentiment
+
+- id: test
+  run: curl "${{ steps.deploy.outputs.url }}"
