@@ -38,9 +38,9 @@ def access_secret_version(secret_id):
 
 def text_sentiment(request):
     secret_id = "GC_FUNCTION_SA"
-    client = storage.Client()
-    bucket = client.get_bucket('geeroar-ml-models')
-    blob = storage.Blob('sentiment_classifier.pickle', bucket)
+    storage_client = storage.Client()
+    bucket = storage_client.bucket('geeroar-ml-models')
+    blob =  bucket.blob('sentiment_classifier.pickle', bucket)
     blob.download_to_filename('/tmp/sentiment_classifier.pickle')
 
     with open('/tmp/sentiment_classifier.pickle') as file_obj:
