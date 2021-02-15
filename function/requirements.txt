@@ -1,2 +1,2 @@
 nltk==3.5
-google-cloud-secret-manager=2.2.0
+google-cloud-secret-manager==2.2.0
