@@ -41,9 +41,7 @@ def text_sentiment(request):
     client = storage.Client()
     bucket = client.get_bucket('geeroar-ml-models')
     blob = storage.Blob('sentiment_classifier.pickle', bucket)
-
-    with open('/tmp/sentiment_classifier.pickle') as file_obj:
-        client.download_blob_to_file(blob, file_obj)
+    blob.download_to_filename('/tmp/sentiment_classifier.pickle')
 
     with open('/tmp/sentiment_classifier.pickle') as file_obj:
         model = pickle.load(file_obj)
