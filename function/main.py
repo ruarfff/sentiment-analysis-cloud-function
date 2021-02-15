@@ -44,6 +44,8 @@ def text_sentiment(request):
 
     with open('/tmp/sentiment_classifier.pickle') as file_obj:
         client.download_blob_to_file(blob, file_obj)
+
+    with open('/tmp/sentiment_classifier.pickle') as file_obj:
         model = pickle.load(file_obj)
 
 
