@@ -15,7 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - id: Deploy Function
+      - id: deploy-function
+        name: Deploy Function
         uses: google-github-actions/deploy-cloud-functions@main
         with:
           credentials: ${{ secrets.GCP_SA_KEY }}
