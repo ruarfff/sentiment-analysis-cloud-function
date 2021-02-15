@@ -1,17 +1,15 @@
 import pickle
 import os
 from google.cloud import secretmanager
+from google.cloud import storage
 
-# import nltk
+import nltk
 # nltk.data.path = ['.nltk']
 
 # from nltk.corpus import stopwords
 # from nltk.tokenize import word_tokenize
 # from string import punctuation
 
-# model_file = open('sentiment_classifier.pickle', 'rb')
-# model = pickle.load(model_file)
-# model_file.close()
 
 # exclusions = set(stopwords.words('english') + punctuation)
 
@@ -40,6 +38,13 @@ def access_secret_version(secret_id):
 
 def text_sentiment(request):
     secret_id = "GC_FUNCTION_SA"
+    client = storage.Client()
+    bucket = client.get_bucket('geeroar-ml-models')
+    blob = storage.Blob('sentiment_classifier.pickle', bucket)
+
+    with open('/tmp/sentiment_classifier.pickle') as file_obj:
+        client.download_blob_to_file(blob, file_obj)
+        model = pickle.load(file_obj)
 
 
     # json = request.get_json()
@@ -49,4 +54,4 @@ def text_sentiment(request):
     #     return check_sentiment(json['text'])
     # else:
 
-    return access_secret_version(secret_id)
+    return "Testing"
