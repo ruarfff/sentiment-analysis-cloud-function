@@ -41,9 +41,9 @@ def text_sentiment(request):
     blob =  bucket.blob('sentiment_classifier.pickle')
     blob.download_to_filename('/tmp/sentiment_classifier.pickle')
 
-    with open('/tmp/sentiment_classifier.pickle') as file_obj:
-        model = pickle.load(file_obj)
-
+    model_file = open('/tmp/sentiment_classifier.pickle', 'wb')
+    model = pickle.load(model_file)
+    model_file.close()
 
     # json = request.get_json()
     # if not json:
