@@ -1,7 +1,7 @@
 import pickle
 import os
 from google.cloud import storage
-
+import ast
 import nltk
 # nltk.data.path = ['.nltk']
 
@@ -41,7 +41,7 @@ def text_sentiment(request):
     blob =  bucket.blob('sentiment_classifier.pickle')
     model_string = blob.download_as_string()
 
-    model = pickle.load(model_string)
+    model = pickle.load(ast.literal_eval(model_string))
 
     # json = request.get_json()
     # if not json:
