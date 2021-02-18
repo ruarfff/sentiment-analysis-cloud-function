@@ -1,6 +1,5 @@
 import pickle
 import os
-from google.cloud import secretmanager
 from google.cloud import storage
 
 import nltk
@@ -27,20 +26,19 @@ import nltk
 #     feature_map = to_feature_map(extract_features(words))
 #     return model.classify(feature_map)
 
-def access_secret_version(secret_id):
-    project_id = os.environ["GCP_PROJECT"]
-    version_id = 1
+# def access_secret_version(secret_id):
+#     project_id = os.environ["GCP_PROJECT"]
+#     version_id = 1
 
-    client = secretmanager.SecretManagerServiceClient()
-    name = f"projects/{project_id}/secrets/{secret_id}/versions/{version_id}"
-    response = client.access_secret_version(request={"name": name})
-    return response.payload.data.decode("UTF-8")
+#     client = secretmanager.SecretManagerServiceClient()
+#     name = f"projects/{project_id}/secrets/{secret_id}/versions/{version_id}"
+#     response = client.access_secret_version(request={"name": name})
+#     return response.payload.data.decode("UTF-8")
 
 def text_sentiment(request):
-    secret_id = "GC_FUNCTION_SA"
     storage_client = storage.Client()
     bucket = storage_client.bucket('geeroar-ml-models')
-    blob =  bucket.blob('sentiment_classifier.pickle', bucket)
+    blob =  bucket.blob('sentiment_classifier.pickle')
     blob.download_to_filename('/tmp/sentiment_classifier.pickle')
 
     with open('/tmp/sentiment_classifier.pickle') as file_obj:
